@@ -11,6 +11,7 @@ func main() {
 	// register hello function to handle all requests
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", hello)
+	mux.HandleFunc("/status", healthCheck)
 
 	// use PORT environment variable, or default to 8080
 	port := os.Getenv("PORT")
@@ -36,4 +37,8 @@ func hello(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello, world!\n")
 	fmt.Fprintf(w, "Version: %s\n", version)
 	fmt.Fprintf(w, "Hostname: %s\n", host)
+}
+
+func healthCheck(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "OK\n")
 }
